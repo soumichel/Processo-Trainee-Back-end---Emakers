@@ -4,7 +4,7 @@ import Biblioteca from 'App/Models/Biblioteca'
 
 export default class BibliotecasController {
 
-    // Método que cadastra uma determinada Biblioteca com id, endereco, site e telefone
+    // Método que cadastra uma determinada Biblioteca com id, endereço, site e telefone
     public async store({request, response}: HttpContextContract) {
         const body = request.body()
         const biblioteca = await Biblioteca.create(body)
