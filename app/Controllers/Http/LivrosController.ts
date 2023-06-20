@@ -4,7 +4,7 @@ import Livro from 'App/Models/Livro'
 
 export default class LivrosController {
 
-    // Método que cadastra um determinado Livro com id, titulo, sinopse e nome dos autores
+    // Método que cadastra um determinado Livro com id, titulo, sinopse, nome dos autores e ano de publicação
     public async store({request, response}: HttpContextContract) {
         const body = request.body()
         const livro = await Livro.create(body)
@@ -47,7 +47,7 @@ export default class LivrosController {
         }
     }
     
-    // Método que busca um id e atualiza os dados do respecito Livro relacionado ao id
+    // Método que busca um id e atualiza os dados do respectivo Livro relacionado ao id
     public async update({params, request}: HttpContextContract) {
         const body = request.body()
         const livro = await Livro.findOrFail(params.id)

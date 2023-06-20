@@ -28,4 +28,10 @@ Route.group(() => {
 
   // Rota de Livro
   Route.resource('/livro', 'LivrosController').apiOnly()
+
+  // Rota de Biblioteca
+  Route.resource('/biblioteca', 'BibliotecasController').apiOnly()
+
+  // Rota de Pessoa
+  Route.resource('/pessoa', 'PessoasController').apiOnly()
 }).prefix('/api')
