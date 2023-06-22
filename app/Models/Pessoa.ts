@@ -6,23 +6,23 @@ export default class Pessoa extends BaseModel {
   public id: number
 
   // Coluna criada
-  @column ()
+  @column()
   public nome: string
 
   // Coluna criada
-  @column ()
+  @column()
   public data_nascimento: string
 
   // Coluna criada
-  @column ()
+  @column()
   public sexo: string
 
   // Coluna criada
-  @column ()
+  @column()
   public telefone: number
 
   // Coluna criada
-  @column ()
+  @column()
   public endereco: string
 
   @column.dateTime({ autoCreate: true })

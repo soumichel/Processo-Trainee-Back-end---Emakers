@@ -1,12 +1,34 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
+import Biblioteca from 'App/Models/Biblioteca'
 import Livro from 'App/Models/Livro'
 
 export default class LivrosController {
 
-    // Método que cadastra um determinado Livro com id, titulo, sinopse, nome dos autores e ano de publicação
+    // POST padrão, cadastrando Livro sem se relacionar com Biblioteca
+    /*// Método que cadastra um determinado Livro com id, titulo, sinopse, nome dos autores e ano de publicação
     public async store({request, response}: HttpContextContract) {
         const body = request.body()
+        const livro = await Livro.create(body)
+
+        response.status(201)
+
+        return {
+            message: 'Livro cadastrado com sucesso!',
+            data: livro,
+        }
+    }*/
+
+    // Método que cadastra um determinado Livro com id, titulo, sinopse, nome dos autores e ano de publicação
+    // e o relaciona com Biblioteca
+    public async store({request, params, response}: HttpContextContract) {
+        const body = request.body()
+        const bibliotecaId = params.bibliotecaId
+
+        await Biblioteca.findOrFail(bibliotecaId)
+
+        body.bibliotecaId = bibliotecaId
+
         const livro = await Livro.create(body)
 
         response.status(201)

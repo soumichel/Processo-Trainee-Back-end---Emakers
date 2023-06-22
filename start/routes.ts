@@ -26,12 +26,14 @@ Route.group(() => {
     return { hello: 'world' }
   })*/
 
-  // Rota de Livro
+  // Rotas de Livro
   Route.resource('/livro', 'LivrosController').apiOnly()
+  // Rota de cadastro de Livro relacionando-o com Biblioteca
+  Route.post('/biblioteca/:bibliotecaId/livro', 'LivrosController.store')
 
-  // Rota de Biblioteca
+  // Rotas de Biblioteca
   Route.resource('/biblioteca', 'BibliotecasController').apiOnly()
 
-  // Rota de Pessoa
+  // Rotas de Pessoa
   Route.resource('/pessoa', 'PessoasController').apiOnly()
 }).prefix('/api')

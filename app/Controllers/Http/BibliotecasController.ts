@@ -17,9 +17,9 @@ export default class BibliotecasController {
         }
     }
 
-    // Método que exibe todas as Bibliotecas cadastradas
+    // Método que exibe todas as Bibliotecas cadastradas e os livros relacionados a ela
     public async index() {
-        const biblioteca = await Biblioteca.all()
+        const biblioteca = await Biblioteca.query().preload('livros')
 
         return {
             data: biblioteca,
@@ -29,6 +29,9 @@ export default class BibliotecasController {
     // Método que busca um id e exibe a respectiva Biblioteca relacionada ao id
     public async show({params}: HttpContextContract) {
         const biblioteca = await Biblioteca.findOrFail(params.id)
+
+        // Exibe todos os livros relacionados a Biblioteca
+        await biblioteca.load('livros')
 
         return {
             data: biblioteca,

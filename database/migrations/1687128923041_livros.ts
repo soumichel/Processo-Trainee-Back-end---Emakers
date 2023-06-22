@@ -11,6 +11,9 @@ export default class extends BaseSchema {
       table.string('nomes_autores')
       table.integer('ano_publicacao')
 
+      // chave estrangeira de Biblioteca
+      table.integer('biblioteca_id').unsigned().references('bibliotecas.id').onDelete('CASCADE')
+
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */
