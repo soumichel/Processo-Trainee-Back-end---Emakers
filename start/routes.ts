@@ -21,18 +21,15 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(() => {
-  // Rota de Teste
-  /*Route.get('/', async () => {
-    return { hello: 'world' }
-  })*/
-
   // Rotas de Livro
   Route.resource('/livro', 'LivrosController').apiOnly()
-  // Rota de cadastro de Livro relacionando-o com Biblioteca
-  Route.post('/biblioteca/:bibliotecaId/livro', 'LivrosController.store')
 
   // Rotas de Biblioteca
   Route.resource('/biblioteca', 'BibliotecasController').apiOnly()
+  // Rota de cadastro de Livro relacionando-o com Biblioteca
+  Route.post('/biblioteca/:bibliotecaId/livro', 'LivrosController.store')
+  // Rota de listar os livros disponíveis em determinada biblioteca
+  Route.get('/biblioteca/:id/listarlivros', 'BibliotecasController.listarLivrosDisponiveis')
 
   // Rotas de Pessoa
   Route.resource('/pessoa', 'PessoasController').apiOnly()

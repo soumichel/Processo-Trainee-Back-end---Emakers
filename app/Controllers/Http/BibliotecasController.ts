@@ -5,7 +5,7 @@ import Biblioteca from 'App/Models/Biblioteca'
 export default class BibliotecasController {
 
     // Método que cadastra uma determinada Biblioteca com id, endereço, site e telefone
-    public async store({request, response}: HttpContextContract) {
+    public async store({ request, response }: HttpContextContract) {
         const body = request.body()
         const biblioteca = await Biblioteca.create(body)
 
@@ -27,7 +27,7 @@ export default class BibliotecasController {
     }
 
     // Método que busca um id e exibe a respectiva Biblioteca relacionada ao id
-    public async show({params}: HttpContextContract) {
+    public async show({ params }: HttpContextContract) {
         const biblioteca = await Biblioteca.findOrFail(params.id)
 
         // Exibe todos os livros relacionados a Biblioteca
@@ -39,7 +39,7 @@ export default class BibliotecasController {
     }
 
     // Método que busca um id e deleta a respectiva Biblioteca relacionada ao id
-    public async destroy({params}: HttpContextContract) {
+    public async destroy({ params }: HttpContextContract) {
         const biblioteca = await Biblioteca.findOrFail(params.id)
 
         await biblioteca.delete()
@@ -51,7 +51,7 @@ export default class BibliotecasController {
     }
 
     // Método que busca um id e atualiza os dados da respectiva Biblioteca relacionada ao id
-    public async update({params, request}: HttpContextContract) {
+    public async update({ params, request }: HttpContextContract) {
         const body = request.body()
         const biblioteca = await Biblioteca.findOrFail(params.id)
 
@@ -64,6 +64,21 @@ export default class BibliotecasController {
         return {
             message: 'Biblioteca atualizada com sucesso!',
             data: biblioteca,
+        }
+    }
+
+    // Método que retorna todos os livros disponíveis em uma determinada Biblioteca
+    public async listarLivrosDisponiveis({ params }: HttpContextContract) {
+        const biblioteca = await Biblioteca.findOrFail(params.id)
+      
+        await biblioteca.load('livros')
+      
+        const livrosDisponiveis = biblioteca.livros.filter((livro) => {
+          return livro.livroId == null
+        })
+      
+        return {
+          data: livrosDisponiveis
         }
     }
 }

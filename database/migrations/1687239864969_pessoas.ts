@@ -12,7 +12,7 @@ export default class extends BaseSchema {
       table.integer('telefone')
       table.string('endereco')
 
-      // chave estrangeira de Biblioteca
+      // chave estrangeira de Livro
       table.integer('livro_id').unsigned().references('livros.id').onDelete('CASCADE')
       
       /**
