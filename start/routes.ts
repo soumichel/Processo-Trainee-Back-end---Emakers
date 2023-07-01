@@ -28,8 +28,10 @@ Route.group(() => {
   Route.resource('/biblioteca', 'BibliotecasController').apiOnly()
   // Rota de cadastro de Livro relacionando-o com Biblioteca
   Route.post('/biblioteca/:bibliotecaId/livro', 'LivrosController.store')
+
+  // TESTE!!!
   // Rota de listar os livros disponíveis em determinada biblioteca
-  Route.get('/biblioteca/:id/listarlivros', 'BibliotecasController.listarLivrosDisponiveis')
+  Route.get('/biblioteca/:id/livrosdisponiveis', 'BibliotecasController.listarLivrosDisponiveis')
 
   // Rotas de Pessoa
   Route.resource('/pessoa', 'PessoasController').apiOnly()

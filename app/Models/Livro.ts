@@ -25,7 +25,7 @@ export default class Livro extends BaseModel {
   @column()
   public bibliotecaId: number
 
-  // Coluna criada, id referenciando Biblioteca
+  // Coluna criada, id referenciando Pessoa
   @column()
   public pessoaId: number
 
@@ -34,5 +34,4 @@ export default class Livro extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
-    livroId: null
 }

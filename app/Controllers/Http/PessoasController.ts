@@ -1,5 +1,4 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-//import Livro from 'App/Models/Livro'
 
 import Pessoa from 'App/Models/Pessoa'
 

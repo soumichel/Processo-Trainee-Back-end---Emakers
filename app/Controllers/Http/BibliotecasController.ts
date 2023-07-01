@@ -67,18 +67,14 @@ export default class BibliotecasController {
         }
     }
 
-    // Método que retorna todos os livros disponíveis em uma determinada Biblioteca
+
+    // TESTE!!!
+    // Método que lista os livros disponíveis de uma biblioteca
     public async listarLivrosDisponiveis({ params }: HttpContextContract) {
-        const biblioteca = await Biblioteca.findOrFail(params.id)
-      
-        await biblioteca.load('livros')
-      
-        const livrosDisponiveis = biblioteca.livros.filter((livro) => {
-          return livro.livroId == null
-        })
-      
+        const biblioteca = await Biblioteca.query().preload('livros').where('id', params.id).firstOrFail()
+
         return {
-          data: livrosDisponiveis
+            data: biblioteca.livros.filter(livro => !livro.pessoaId), // Filtra os livros que não estão emprestados
         }
     }
 }
