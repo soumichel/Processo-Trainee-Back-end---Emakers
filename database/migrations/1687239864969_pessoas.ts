@@ -11,9 +11,6 @@ export default class extends BaseSchema {
       table.string('sexo')
       table.integer('telefone')
       table.string('endereco')
-
-      // chave estrangeira de Livro
-      table.integer('livro_id').unsigned().references('livros.id').onDelete('CASCADE')
       
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

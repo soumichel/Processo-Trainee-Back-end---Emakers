@@ -25,6 +25,10 @@ export default class Livro extends BaseModel {
   @column()
   public bibliotecaId: number
 
+  // Coluna criada, id referenciando Biblioteca
+  @column()
+  public pessoaId: number
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

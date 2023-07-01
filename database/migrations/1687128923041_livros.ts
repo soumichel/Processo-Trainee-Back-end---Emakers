@@ -14,6 +14,9 @@ export default class extends BaseSchema {
       // chave estrangeira de Biblioteca
       table.integer('biblioteca_id').unsigned().references('bibliotecas.id').onDelete('CASCADE')
 
+      // chave estrangeira de Pessoa
+      table.integer('pessoa_id').unsigned().references('pessoas.id').onDelete('CASCADE')
+
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */

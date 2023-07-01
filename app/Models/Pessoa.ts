@@ -30,10 +30,6 @@ export default class Pessoa extends BaseModel {
   @column()
   public endereco: string
 
-  // Coluna criada, id referenciando Livro
-  @column()
-  public livroId: number
-
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
