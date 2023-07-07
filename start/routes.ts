@@ -35,4 +35,8 @@ Route.group(() => {
 
   // Rotas de Pessoa
   Route.resource('/pessoa', 'PessoasController').apiOnly()
+
+  // TESTE!!!
+  // Rota de emprestar um livro para uma pessoa
+  Route.put('/pessoa/:pessoaId/emprestarlivro/:livroId', 'PessoasController.emprestarLivro')
 }).prefix('/api')

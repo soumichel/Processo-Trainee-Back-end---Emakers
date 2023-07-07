@@ -1,4 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Livro from 'App/Models/Livro'
 
 import Pessoa from 'App/Models/Pessoa'
 
@@ -16,19 +17,23 @@ export default class PessoasController {
             data: pessoa,
         }
     }
-    
-    // Método que exibe todas as Pessoas cadastradas
+
+    // TESTE!!!
+    // Método que exibe todas as Pessoas cadastradas e os Livros emprestados a ela
     public async index() {
-        const pessoa = await Pessoa.all()
+        const pessoa = await Pessoa.query().preload('livros')
 
         return {
             data: pessoa,
         }
     }
 
+    // TESTE!!!
     // Método que busca um id e exibe a respectiva Pessoa relacionada ao id
     public async show({ params }: HttpContextContract) {
         const pessoa = await Pessoa.findOrFail(params.id)
+
+        await pessoa.load('livros')
 
         return {
             data: pessoa,
@@ -62,4 +67,27 @@ export default class PessoasController {
             data: pessoa,
         }
     }
+
+
+    // TESTE!!!
+    // Método para uma pessoa pegar um livro emprestado
+    public async emprestarLivro({ params, response }: HttpContextContract) {
+        const pessoa = await Pessoa.findOrFail(params.pessoaId)
+        const livro = await Livro.findOrFail(params.livroId)
+
+        if (livro.pessoaId) {
+            return response.status(400).json({
+                message: 'O livro já está emprestado.',
+            })
+        }
+
+        livro.pessoaId = pessoa.id
+        await livro.save()
+
+        return {
+            message: 'Livro emprestado com sucesso!',
+            data: livro,
+        }
+    }
+
 }
