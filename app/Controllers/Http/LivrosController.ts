@@ -68,7 +68,7 @@ export default class LivrosController {
             data: livro,
         }
     }
-    
+
     // Método que busca um id e atualiza os dados do respectivo Livro relacionado ao id
     public async update({ params, request }: HttpContextContract) {
         const body = request.body()
@@ -85,5 +85,34 @@ export default class LivrosController {
             message: 'Livro atualizado com sucesso!',
             data: livro,
         }
+    }
+
+    
+    // TESTE!!!
+    // Método para transferir um livro de uma biblioteca para outra
+    public async transferirLivro({ params, response }: HttpContextContract) {
+        const livro = await Livro.findOrFail(params.livroId)
+        const biblioteca = await Biblioteca.findOrFail(params.bibliotecaId)
+
+
+        if (livro.bibliotecaId === biblioteca.id) {
+            return response.status(400).json({
+                message: 'O livro já está na biblioteca de destino.',
+            })
+        }
+
+        if (livro.pessoaId) {
+            return response.status(400).json({
+                message: 'O livro está emprestado e não pode ser transferido.',
+            })
+        }
+
+        livro.bibliotecaId = biblioteca.id
+        await livro.save()
+
+        return response.status(200).json({
+            message: 'Livro transferido com sucesso!',
+            data: livro,
+        })
     }
 }

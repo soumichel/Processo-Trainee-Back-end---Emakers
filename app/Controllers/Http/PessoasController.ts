@@ -29,7 +29,7 @@ export default class PessoasController {
     }
 
     // TESTE!!!
-    // Método que busca um id e exibe a respectiva Pessoa relacionada ao id
+    // Método que busca um id e exibe a respectiva Pessoa relacionada ao id e os Livros relacionado a ela
     public async show({ params }: HttpContextContract) {
         const pessoa = await Pessoa.findOrFail(params.id)
 
@@ -90,4 +90,25 @@ export default class PessoasController {
         }
     }
 
+    
+    // TESTE!!!
+    // Método para uma pessoa devolver um livro emprestado
+    public async devolverLivro({ params, response }: HttpContextContract) {
+        const pessoa = await Pessoa.findOrFail(params.pessoaId)
+        const livro = await Livro.findOrFail(params.livroId)
+
+        if (!livro.pessoaId || livro.pessoaId !== pessoa.id) {
+            return response.status(400).json({
+                message: 'O livro não está emprestado para essa pessoa.',
+            })
+        }
+
+        livro.pessoaId = null
+        await livro.save()
+
+        return {
+            message: 'Livro devolvido com sucesso!',
+            data: livro,
+        }
+    }
 }
