@@ -1,28 +1,34 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, HasMany, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
+
+import Livro from './Livro'
 
 export default class Pessoa extends BaseModel {
+  // recupera os livros relacionados a pessoa
+  @hasMany(() => Livro)
+  public livros: HasMany<typeof Livro>
+
   @column({ isPrimary: true })
   public id: number
 
   // Coluna criada
-  @column ()
+  @column()
   public nome: string
 
   // Coluna criada
-  @column ()
+  @column()
   public data_nascimento: string
 
   // Coluna criada
-  @column ()
+  @column()
   public sexo: string
 
   // Coluna criada
-  @column ()
+  @column()
   public telefone: number
 
   // Coluna criada
-  @column ()
+  @column()
   public endereco: string
 
   @column.dateTime({ autoCreate: true })

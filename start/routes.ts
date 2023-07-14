@@ -21,17 +21,22 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(() => {
-  // Rota de Teste
-  /*Route.get('/', async () => {
-    return { hello: 'world' }
-  })*/
-
-  // Rota de Livro
+  // Rotas de Livro
   Route.resource('/livro', 'LivrosController').apiOnly()
+  // Rota de transferir um livro de uma biblioteca para outra
+  Route.put('/livro/:livroId/transferir/:bibliotecaId', 'LivrosController.transferirLivro')
 
-  // Rota de Biblioteca
+  // Rotas de Biblioteca
   Route.resource('/biblioteca', 'BibliotecasController').apiOnly()
+  // Rota de cadastro de livro relacionando-o com biblioteca
+  Route.post('/biblioteca/:bibliotecaId/livro', 'LivrosController.store')
+  // Rota de listar os livros disponíveis em determinada biblioteca
+  Route.get('/biblioteca/:id/livrosdisponiveis', 'BibliotecasController.listarLivrosDisponiveis')
 
-  // Rota de Pessoa
+  // Rotas de Pessoa
   Route.resource('/pessoa', 'PessoasController').apiOnly()
+  // Rota de emprestar um livro para uma pessoa
+  Route.put('/pessoa/:pessoaId/emprestarlivro/:livroId', 'PessoasController.emprestarLivro')
+  // Rota de devolver o livro emprestado
+  Route.put('/pessoa/:pessoaId/devolverlivro/:livroId', 'PessoasController.devolverLivro')
 }).prefix('/api')
