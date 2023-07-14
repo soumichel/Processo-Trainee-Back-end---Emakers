@@ -65,8 +65,6 @@ export default class BibliotecasController {
         }
     }
 
-
-    // TESTE!!!
     // Método que lista os livros disponíveis de uma biblioteca
     public async listarLivrosDisponiveis({ params }: HttpContextContract) {
         const biblioteca = await Biblioteca.query().preload('livros').where('id', params.id).firstOrFail()

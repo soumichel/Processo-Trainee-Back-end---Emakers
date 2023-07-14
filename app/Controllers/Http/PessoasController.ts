@@ -16,7 +16,6 @@ export default class PessoasController {
         })
     }
 
-    // TESTE!!!
     // Método que exibe todas as Pessoas cadastradas e os Livros emprestados a ela
     public async index() {
         const pessoa = await Pessoa.query().preload('livros')
@@ -26,7 +25,6 @@ export default class PessoasController {
         }
     }
 
-    // TESTE!!!
     // Método que busca um id e exibe a respectiva Pessoa relacionada ao id e os Livros relacionado a ela
     public async show({ params }: HttpContextContract) {
         const pessoa = await Pessoa.findOrFail(params.id)
@@ -67,8 +65,6 @@ export default class PessoasController {
         }
     }
 
-
-    // TESTE!!!
     // Método para uma pessoa pegar um livro emprestado
     public async emprestarLivro({ params, response }: HttpContextContract) {
         const pessoa = await Pessoa.findOrFail(params.pessoaId)
@@ -90,8 +86,6 @@ export default class PessoasController {
         }
     }
 
-    
-    // TESTE!!!
     // Método para uma pessoa devolver um livro emprestado
     public async devolverLivro({ params, response }: HttpContextContract) {
         const pessoa = await Pessoa.findOrFail(params.pessoaId)
@@ -104,7 +98,7 @@ export default class PessoasController {
         }
 
         livro.pessoaId = null
-        
+
         await livro.save()
 
         return {

@@ -90,8 +90,6 @@ export default class LivrosController {
         }
     }
 
-
-    // TESTE!!!
     // Método para transferir um livro de uma biblioteca para outra
     public async transferirLivro({ params, response }: HttpContextContract) {
         const livro = await Livro.findOrFail(params.livroId)
