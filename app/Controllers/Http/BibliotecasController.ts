@@ -9,12 +9,10 @@ export default class BibliotecasController {
         const body = request.body()
         const biblioteca = await Biblioteca.create(body)
 
-        response.status(201)
-
-        return {
+        return response.status(201).json({
             message: 'Biblioteca cadastrada com sucesso!',
             data: biblioteca,
-        }
+        })
     }
 
     // Método que exibe todas as Bibliotecas cadastradas e os livros relacionados a ela

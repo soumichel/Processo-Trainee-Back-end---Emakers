@@ -12,14 +12,11 @@ export default class extends BaseSchema {
       table.integer('ano_publicacao')
 
       // chave estrangeira de Biblioteca
-      table.integer('biblioteca_id').unsigned().references('bibliotecas.id').onDelete('CASCADE')
+      table.integer('biblioteca_id').unsigned().references('bibliotecas.id').onDelete('RESTRICT')
 
       // chave estrangeira de Pessoa
-      table.integer('pessoa_id').unsigned().references('pessoas.id').onDelete('CASCADE')
+      table.integer('pessoa_id').unsigned().references('pessoas.id').onDelete('RESTRICT')
 
-      /**
-       * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
-       */
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

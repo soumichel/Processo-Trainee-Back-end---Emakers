@@ -27,7 +27,7 @@ export default class Livro extends BaseModel {
 
   // Coluna criada, id referenciando Pessoa
   @column()
-  public pessoaId: number | null  // pessoaId pode receber tanto valores como number quanto null, opção escolhida para que oo método devolverLivro funcione corretamente.
+  public pessoaId: number | null  // pessoaId pode receber tanto valores como number quanto null, opção escolhida para que o método devolverLivro funcione corretamente.
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

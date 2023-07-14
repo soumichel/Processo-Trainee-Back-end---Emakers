@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
 import { BaseModel, HasMany, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
+
 import Livro from './Livro'
 
 export default class Biblioteca extends BaseModel {

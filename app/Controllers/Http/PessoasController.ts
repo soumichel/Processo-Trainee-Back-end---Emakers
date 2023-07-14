@@ -1,6 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Livro from 'App/Models/Livro'
 
+import Livro from 'App/Models/Livro'
 import Pessoa from 'App/Models/Pessoa'
 
 export default class PessoasController {
@@ -10,12 +10,10 @@ export default class PessoasController {
         const body = request.body()
         const pessoa = await Pessoa.create(body)
 
-        response.status(201)
-
-        return {
+        return response.status(201).json({
             message: 'Pessoa cadastrada com sucesso!',
             data: pessoa,
-        }
+        })
     }
 
     // TESTE!!!
@@ -33,6 +31,7 @@ export default class PessoasController {
     public async show({ params }: HttpContextContract) {
         const pessoa = await Pessoa.findOrFail(params.id)
 
+        // Exibe todos os livros relacionados a Pessoa
         await pessoa.load('livros')
 
         return {
@@ -82,6 +81,7 @@ export default class PessoasController {
         }
 
         livro.pessoaId = pessoa.id
+
         await livro.save()
 
         return {
@@ -104,6 +104,7 @@ export default class PessoasController {
         }
 
         livro.pessoaId = null
+        
         await livro.save()
 
         return {

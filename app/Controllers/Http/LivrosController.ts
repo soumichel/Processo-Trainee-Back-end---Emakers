@@ -5,38 +5,41 @@ import Livro from 'App/Models/Livro'
 
 export default class LivrosController {
 
+    /* 
     // POST padrão, cadastrando Livro sem se relacionar com Biblioteca
-    /*// Método que cadastra um determinado Livro com id, titulo, sinopse, nome dos autores e ano de publicação
+    // Método que cadastra um determinado Livro com id, titulo, sinopse, nome dos autores e ano de publicação
     public async store({request, response}: HttpContextContract) {
         const body = request.body()
         const livro = await Livro.create(body)
 
-        response.status(201)
-
-        return {
+        return response.status(201).json({
             message: 'Livro cadastrado com sucesso!',
             data: livro,
-        }
-    }*/
+        })
+    }
+    */
 
     // Método que cadastra um determinado Livro com id, titulo, sinopse, nome dos autores e ano de publicação
     // e o relaciona com Biblioteca
     public async store({ request, params, response }: HttpContextContract) {
         const body = request.body()
         const bibliotecaId = params.bibliotecaId
+        const biblioteca = await Biblioteca.find(bibliotecaId)
 
-        await Biblioteca.findOrFail(bibliotecaId)
+        if (!biblioteca) {
+            return response.status(404).json({
+                message: 'Biblioteca não encontrada. Não é possível cadastrar o livro.',
+            })
+        }
 
         body.bibliotecaId = bibliotecaId
 
         const livro = await Livro.create(body)
 
-        response.status(201)
-
-        return {
+        return response.status(201).json({
             message: 'Livro cadastrado com sucesso!',
             data: livro,
-        }
+        })
     }
 
     // Método que exibe todos os Livros cadastrados
@@ -87,13 +90,12 @@ export default class LivrosController {
         }
     }
 
-    
+
     // TESTE!!!
     // Método para transferir um livro de uma biblioteca para outra
     public async transferirLivro({ params, response }: HttpContextContract) {
         const livro = await Livro.findOrFail(params.livroId)
         const biblioteca = await Biblioteca.findOrFail(params.bibliotecaId)
-
 
         if (livro.bibliotecaId === biblioteca.id) {
             return response.status(400).json({
@@ -108,6 +110,7 @@ export default class LivrosController {
         }
 
         livro.bibliotecaId = biblioteca.id
+
         await livro.save()
 
         return response.status(200).json({
